@@ -24,3 +24,8 @@ category_totals = (df[df["Amount"]< 0]
 )
 
 print(abs(category_totals))
+
+#find the biggest expense
+largest_expense = df.loc[df["Amount"].idxmin()]
+print("\nLargest Expense: ")
+print(f'{largest_expense["Description"]} - $ {abs(largest_expense["Amount"]):.2f}')
