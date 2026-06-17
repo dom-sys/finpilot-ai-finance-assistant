@@ -1,4 +1,6 @@
 import pandas as pd
+import plotly.express as px 
+
 
 df = pd.read_csv("data/transactions.csv")
 print(df)
@@ -29,3 +31,14 @@ print(abs(category_totals))
 largest_expense = df.loc[df["Amount"].idxmin()]
 print("\nLargest Expense: ")
 print(f'{largest_expense["Description"]} - $ {abs(largest_expense["Amount"]):.2f}')
+
+
+category_chart = abs(category_totals)
+fig = px.bar(
+    x = category_chart.index,
+    y = category_chart.values, 
+    labels = {"x": "Category", "y": "Amount($)"},
+    title = "Spending by Category"
+)
+fig.show()
+print(type(category_chart))
