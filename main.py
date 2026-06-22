@@ -1,34 +1,42 @@
 import pandas as pd
 import plotly.express as px 
 
+#Functions
 
-df = pd.read_csv("data/transactions.csv")
-print(df)
+def load_transactions():
+    return pd.read_csv("data/transactions.csv")
+def calculate_summary(df):
+ income = df[df["Amount"] > 0]["Amount"].sum()
+ expenses = abs(df[df["Amount"] < 0] ["Amount"].sum())
+ net_savings = income - expenses
 
-#print number of transactions
-#print the total income
-#print total expenses
+ return income, expenses, net_savings, len(df) 
+
+def calculate_category_totals(df):
+    category_totals = (df[df["Amount"]< 0]
+.groupby("Category")["Amount"].sum()
+)
+    return (abs(category_totals))
+def find_largest_expense(df):
+    return df.loc[df["Amount"].idxmin()]
 
 
-print("\n Total Transactions:" , len(df))
-
-income = df[df["Amount"] > 0]["Amount"].sum()
-expenses = abs(df[df["Amount"] < 0] ["Amount"].sum())
+df = load_transactions()
+income, expenses, net_savings, total_transactions = calculate_summary(df)
+print("\nTotal Transactions:", total_transactions)
 
 print(f" Total Income: ${income:.2f}")
 print(f" Total Expenses:  ${expenses:.2f}")
+print(f" Net Savings: ${net_savings:.2f}")
 
 #check spending by category
 
-print("\n Spending by Category: ")
-category_totals = (df[df["Amount"]< 0]
-.groupby("Category")["Amount"].sum()
-)
+category_totals = calculate_category_totals(df)
+print("\n Spending by Category: ", category_totals)
 
-print(abs(category_totals))
 
 #find the biggest expense
-largest_expense = df.loc[df["Amount"].idxmin()]
+largest_expense = find_largest_expense(df)
 print("\nLargest Expense: ")
 print(f'{largest_expense["Description"]} - $ {abs(largest_expense["Amount"]):.2f}')
 
