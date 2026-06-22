@@ -17,13 +17,14 @@ def calculate_category_totals(df):
 .groupby("Category")["Amount"].sum()
 )
     return (abs(category_totals))
+
 def find_largest_expense(df):
     return df.loc[df["Amount"].idxmin()]
 
 
 df = load_transactions()
 income, expenses, net_savings, total_transactions = calculate_summary(df)
-print("\nTotal Transactions:", total_transactions)
+print(f" Total Transactions:", total_transactions)
 
 print(f" Total Income: ${income:.2f}")
 print(f" Total Expenses:  ${expenses:.2f}")
