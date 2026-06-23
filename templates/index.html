@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> FinPilot Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="dashboard">
+
+     <h1>FinPilot Dashboard</h1>
+
+     <div class="card">Total Transactions:  {{ total_transactions }} </div>
+
+     <div class="card">Total Income: ${{ income }} </div>
+
+     <div class="card">Total Expenses: $ {{expenses }} </div>
+    
+     <div class="card">Net Savings: $ {{ net_savings }} </div>
+    </div>
+
+</body>
+</html>
